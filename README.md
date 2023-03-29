@@ -39,7 +39,7 @@ GROUP BY customer;
 
 ### 3. What was the first item from the menu purchased by each customer? 
 ````sql
-SELECT
+SELECT DISTINCT
     customer_id,
     product_name as item
 FROM(SELECT
@@ -58,7 +58,6 @@ WHERE date_rank=1;
 | A        | sushi |
 | A        | curry |
 | B        | curry |
-| C        | ramen |
 | C        | ramen |
 
 ### 4. What is the most purchased item on the menu and how many times was it purchased by all customers?
@@ -141,7 +140,7 @@ WHERE first_order = 1;
 ````sql
 WITH no_member_sales as
 (SELECT
-	sales.customer_id,
+    sales.customer_id,
     product_name as item,
     order_date,
     join_date,
@@ -169,7 +168,7 @@ WHERE last_order = 1;
 ````sql
 SELECT distinct
     sales.customer_id,
-	COUNT(sales.product_id) OVER (PARTITION BY sales.customer_id) as total_items,
+    COUNT(sales.product_id) OVER (PARTITION BY sales.customer_id) as total_items,
     SUM(price) OVER (PARTITION BY sales.customer_id) as total_spent
 FROM sales
 JOIN menu ON sales.product_id = menu.product_id
@@ -217,7 +216,7 @@ JOIN members ON sales.customer_id = members.customer_id
 WHERE order_date <= '2021-01-31')
 
 SELECT
-	customer_id,
+    customer_id,
     SUM(points)
 FROM members_points_until_jan
 GROUP BY customer_id

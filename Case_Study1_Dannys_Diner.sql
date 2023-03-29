@@ -21,7 +21,7 @@ FROM sales
 GROUP BY customer;
 
 -- 3. What was the first item from the menu purchased by each customer?
-SELECT
+SELECT DISTINCT
 	customer_id,
 	product_name as item
 FROM(SELECT
